@@ -7,18 +7,61 @@ module.exports.profile=function(req,res)
     });
 }
 //render the signup page
-module.exports.signUp=function(req,res)
+module.exports.signUp=async function(req,res)
 {
-    return res.render('user_sign_up',{
+  try{
+    const check=req.isAuthenticated();
+    if(check)
+    {
+      res.redirect('/users/profile');
+    }
+    else{
+      return res.render('user_sign_up',{
         title: "DBOOK | Sign Up"
     });
+    }
+
+  }
+  catch(err)
+  {
+    console.log('error in signing up');
+  }
+  // if(req.isAuthenticated())
+  // {
+  //   return res.redirect('/users/profile');
+  // }
+  //   return res.render('user_sign_up',{
+  //       title: "DBOOK | Sign Up"
+  //   });
 }
 //render the sign in page
-module.exports.signIn=function(req,res)
+module.exports.signIn=async function(req,res)
 {
-    return res.render('user_sign_in',{
-        title: "DBOOK | Sign In"
-    });
+  try{
+  const check=await req.isAuthenticated();
+  if(check)
+  {
+    return res.redirect('/users/profile');
+  }
+  else{
+    // return res.render('user_sign_in',{
+    //   title: "DBOOK | Sign In"
+    // return res.redirect('/users/sign-in');
+    res.render('user_sign_in', {title: "DBOOK"});
+  }
+  }
+  
+  catch(err)
+  {
+    console.log('error in sigining in');
+  }
+  // if(req.isAuthenticated())
+  // {
+  //   return res.redirect('/users/profile');
+  // }
+  //   return res.render('user_sign_in',{
+  //       title: "DBOOK | Sign In"
+  //   });
 }
 //get the sign up data
 // module.exports.createid=function(req,res){
@@ -83,4 +126,15 @@ module.exports.signIn=function(req,res)
 //sign in and create a session for the user
 module.exports.createSession=function(req,res){
     //to do later
+    return res.redirect('/users/profile');
+}
+module.exports.destroySession = function(req,res){
+  req.logout(function(err){
+    if(err)
+    {
+      return next(err);
+    }
+    return res.redirect('/users/sign-in');
+  });
+  
 }

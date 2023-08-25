@@ -9,7 +9,4 @@ module.exports.home=function(req,res)
    });
 }
 //module.exports.actionname= function(req,res){
-module.exports.try=function(req,res)
-{
-    return res.end('<h1> another try</h1>');
-}
+

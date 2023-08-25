@@ -2,5 +2,8 @@
     <body>
         
         <h1>This is DBOOK/ <%=title %></h1>
-      
+      <p> <%= user.name%> </p>
+      <p>  <%= user.email %></p>
+      <form action="/users/sign-out" method="get"><input type="submit" value="sign-out"></form>
     </body>
+
