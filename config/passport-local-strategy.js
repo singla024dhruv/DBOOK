@@ -77,12 +77,13 @@ passport.deserializeUser(async function(id, done) {
       return done(err);
     }
   });
-
+//check if the user is authenticated
 passport.checkAuthentication=async function(req,res,next){
     try{
         const check=await req.isAuthenticated();
         if(check)
         {
+            //if the user is signed in then pass on the request to the next function(controller's action)
             return next();
         }
         else{
