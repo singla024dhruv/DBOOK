@@ -29,7 +29,12 @@ const Post =require('../models/post');
   // findOne({ title: 'Casino Royale' }).
   // populate('user').
   // exec();
-  const posts = await Post.find({}).populate('user').exec();
+  const posts = await Post.find({}).populate('user').populate({
+    path: 'comments',populate: {
+      path: 'user'
+    }
+  }
+  ).exec();
   res.render('home', {
     title: "DBOOK| Home",
     posts: posts
