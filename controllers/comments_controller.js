@@ -75,8 +75,10 @@ module.exports.create = async function(req, res) {
       //     }
       module.exports.destroy = async function(req, res) {
         const comment = await Comment.findById(req.params.id);
-        if (comment.user == req.user.id) {
-          let postid = comment.post;
+        let postid = comment.post;
+        const post=await Post.findById(postid);
+        if ((comment.user._id == req.user.id)||(post.user._id==req.user.id) ){
+          // let postid = comment.post;
           await comment.deleteOne({comment:req.params.id});
           await Post.findByIdAndUpdate(postid, { $pull: { comments: req.params.id } });
           return res.redirect('back');
