@@ -55,6 +55,36 @@ module.exports.create = async function(req, res) {
         //     } 
           
         //     }
-            
+      // module.exports.destroy =function(req,res)
+      // {
+      //   Comment.findById(req.params.id,function(err,comment){
+      //     if(comment.user==req.user.id)
+      //     {
+      //       let postid=comment.post;
+      //       comment.deleteOne({id:req.params.id});
+      //       Post.findByIdAndUpdate(postid,{$pull : { comments:req.params.id}},function(err,post){
+      //         return res.redirect('back');
+      //       })
+
+      //     }
+      //     else
+      //     {
+      //       return res.redirect('back');
+      //     }
+      //       });
+      //     }
+      module.exports.destroy = async function(req, res) {
+        const comment = await Comment.findById(req.params.id);
+        if (comment.user == req.user.id) {
+          let postid = comment.post;
+          await comment.deleteOne({comment:req.params.id});
+          await Post.findByIdAndUpdate(postid, { $pull: { comments: req.params.id } });
+          return res.redirect('back');
+        } else {
+          return res.redirect('back');
+        }
+      }
+      
+      
 
 
