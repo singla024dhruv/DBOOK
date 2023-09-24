@@ -1,4 +1,5 @@
 const Post =require('../models/post');
+const User =require('../models/user');
 // module.exports.home=function(req,res)
 // {
     //console.log(req.cookies);
@@ -35,9 +36,11 @@ const Post =require('../models/post');
     }
   }
   ).exec();
+  const users= await User.find({});
   res.render('home', {
     title: "DBOOK| Home",
-    posts: posts
+    posts: posts,
+    all_users:users
   });
   
 

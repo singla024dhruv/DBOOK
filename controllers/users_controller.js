@@ -1,10 +1,25 @@
 const User =require('../models/user.js');
-module.exports.profile=function(req,res)
+module.exports.profile= async function(req,res)
 {
+  const user= await User.findById(req.params.id);
     //return res.end('<h1> users profile</h1>');
     return res.render('users_profile',{
         title: "user_profile",
+        profile_user: user
     });
+}
+
+module.exports.update=async function(req,res){
+  if(req.user.id==req.params.id)
+  {
+    const users=await User.findByIdAndUpdate(req.params.id,req.body);
+    return res.redirect('back');
+
+  }
+  else
+  {
+    return res.status
+  }
 }
 //render the signup page
 module.exports.signUp=async function(req,res)
