@@ -12,11 +12,13 @@ module.exports.create = async function(req, res) {
      
       post.comments?.push(comment);
       post.save();
+      req.flash('success','comment is posted');
       res.redirect('/');
       
     }
     else
     {
+      req.flash('error','error in commenting try again');
         res.redirect('/');
     }
   };
@@ -81,8 +83,10 @@ module.exports.create = async function(req, res) {
           // let postid = comment.post;
           await comment.deleteOne({comment:req.params.id});
           await Post.findByIdAndUpdate(postid, { $pull: { comments: req.params.id } });
+          req.flash('success','comment is deleted');
           return res.redirect('back');
         } else {
+          req.flash('error','cannot delete comment');
           return res.redirect('back');
         }
       }

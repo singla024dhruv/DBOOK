@@ -1,6 +1,6 @@
 <li><p>
     <!-- so that if post owner want to delete inappropriate comment he/she can -->
-    <% if((locals.user)&&((locals.user.id==comment.user.id))||(locals.user.id==post.user.id)) {%>
+    <% if((locals.user)&&((locals.user.id==comment.user.id))) {%>
     <small>
         <a href="/comments/destroy/<%= comment.id%>"> delete</a>
     </small>

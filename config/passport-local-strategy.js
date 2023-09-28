@@ -10,6 +10,7 @@ const User = require('../models/user');
 
 // passport.use(new localStrategy({
 //     usernameField: 'email'
+//      passReqToCallback:true
 // },
 // function(email,password,done)
 // {
@@ -17,11 +18,13 @@ const User = require('../models/user');
 //     User.findOne({email: email},function(err,user){
 //         if(err)
 //         {
+//                 req.flash('error',err);
 //             console.log('error in finding user --> Passport');
 //             return done(err);
 //         }
 //         if(!user||user.password!=password)
 //         {
+//          req.flash('error','INVALID USERNAME/PASSWORD');
 //             console.log('invalid username/password');
 //             return done(null,false);
 //         }
@@ -32,19 +35,22 @@ const User = require('../models/user');
 // }
 // ));
 passport.use(new localStrategy({
-    usernameField: 'email'
+    usernameField: 'email',
+    passReqToCallback:true
 },
-async function(email, password, done) {
+async function(req,email, password, done) {
     try {
         const user = await User.findOne({ email: email });
         if (!user || user.password != password) {
             console.log('invalid username/password');
+            req.flash('error','Invalid Username/password');
             return done(null, false);
         } else {
             return done(null, user);
         }
     } catch (err) {
         console.log('error in finding user --> Passport');
+        //req.flash('error',err);
         return done(err);
     }
 }

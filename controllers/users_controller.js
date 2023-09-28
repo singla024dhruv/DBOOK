@@ -13,12 +13,13 @@ module.exports.update=async function(req,res){
   if(req.user.id==req.params.id)
   {
     const users=await User.findByIdAndUpdate(req.params.id,req.body);
+    req.flash('success','user details is updated');
     return res.redirect('back');
 
   }
   else
   {
-    return res.status
+    return res.status;
   }
 }
 //render the signup page
@@ -127,9 +128,11 @@ module.exports.signIn=async function(req,res)
             await User.create(req.body);
             console.log('user created');
             console.log(req.body);
+            req.flash('success','account is created!');
             return res.redirect('/users/sign-in');
           } else {
            // window.alert('user email already registerd');
+           req.flash('error','user already exist please sign in to continue');
             return res.redirect('back');
           }
         } catch (err) {
