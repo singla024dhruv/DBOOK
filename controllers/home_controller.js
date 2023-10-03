@@ -30,14 +30,17 @@ const User =require('../models/user');
   // findOne({ title: 'Casino Royale' }).
   // populate('user').
   // exec();
-  const posts = await Post.find({}).populate('user').populate({
+  try{
+  const posts = await Post.find({})
+  .sort('-createdAt')
+  .populate('user').populate({
     path: 'comments',populate: {
       path: 'user'
     }
   }
   ).exec();
   const users= await User.find({});
-  res.render('home', {
+  return res.render('home', {
     title: "DBOOK| Home",
     posts: posts,
     all_users:users
@@ -45,5 +48,9 @@ const User =require('../models/user');
   
 
 }
+catch(err){
+  console.log('error',err);
+  return;
+}
+ }
 //module.exports.actionname= function(req,res){
-

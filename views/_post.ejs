@@ -1,9 +1,9 @@
 
-<li>
+<li id="post-<%=post.id%>">
     <p>
         <% if((locals.user)&& (locals.user.id==post.user.id)){ %>
         <small>
-            <a href="/posts/destroy/<%= post.id%>"> delete</a>
+            <a class="delete-post-button" href="/posts/destroy/<%= post.id%>"> delete</a>
         </small>
         <% } %>
     <%= post.content%>
@@ -12,17 +12,17 @@
         <%= post.user.name %>
     </small>
     </p>
-    <div class="post-comment">
+    <div class="post-comments">
         <% if(locals.user){%>
             <form action="/comments/create" method="POST" >
-                <input type="text" name="content" plaaceholder="Type here to add comment..." required>
+                <input type="text" name="content" placeholder="Type here to add comment..." required>
                 <input type="hidden" name="post" value="<%= post._id %>">
                 <input type="submit" value="add comment">
 
             </form>
             <%}%>
 
-            <div class="post-comment-list">
+            <div class="post-comments-list">
                 <ul id="post-comments-<%= post._id %>">
                     <% for(comment of post.comments) {%>
                        <%- include('_comment') -%>
@@ -30,4 +30,5 @@
                 </ul>
             </div>
     </div>
+    
 </li>
