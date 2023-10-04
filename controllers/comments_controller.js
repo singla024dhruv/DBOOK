@@ -12,6 +12,21 @@ module.exports.create = async function(req, res) {
      
       post.comments?.push(comment);
       post.save();
+
+      if (req.xhr){
+        // Similar for comments to fetch the user's id!
+        console.log('xhr is called in creating a comment');
+         await comment.populate('user', 'name');
+
+        return res.status(200).json({
+            data: {
+                comment: comment
+            },
+            message: "Post created!"
+        });
+    }
+    console.log('xhr is not called in creating a comment');
+
       req.flash('success','comment is posted');
       res.redirect('/');
       
@@ -76,13 +91,24 @@ module.exports.create = async function(req, res) {
       //       });
       //     }
       module.exports.destroy = async function(req, res) {
+        try{
         const comment = await Comment.findById(req.params.id);
         let postid = comment.post;
         const post=await Post.findById(postid);
-        if ((comment.user._id == req.user.id)||(post.user._id==req.user.id) ){
+        if ((comment.user == req.user.id)||(post.user._id==req.user.id) ){
           // let postid = comment.post;
           await comment.deleteOne({comment:req.params.id});
           await Post.findByIdAndUpdate(postid, { $pull: { comments: req.params.id } });
+          if (req.xhr){
+            console.log('xhr is called');
+            return res.status(200).json({
+                data: {
+                    comment_id: req.params.id
+                },
+                message: "Post deleted"
+            });
+        }
+        console.log('xhr is not called in deleting comments');
           req.flash('success','comment is deleted');
           return res.redirect('back');
         } else {
@@ -90,7 +116,13 @@ module.exports.create = async function(req, res) {
           return res.redirect('back');
         }
       }
-      
+      catch(err)
+      {
+        req.flash('error',err);
+        console.log('erroe',err);
+        return;
+      }
+    }
       
 
 

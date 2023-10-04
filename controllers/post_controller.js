@@ -1,5 +1,6 @@
 const Post=require('../models/post.js');
 const Comment=require('../models/comment.js');
+const { name } = require('ejs');
 module.exports.create= async function(req,res)
 {
     try{
@@ -7,8 +8,14 @@ module.exports.create= async function(req,res)
         content: req.body.content,
         user: req.user._id
     });
-
     if(req.xhr){
+      await post.populate('user', 'name');
+      //await post.populate('user','name').exec();
+      // const posts=post.findOne({_id:post._id}).populate({
+      //   path:'user',populate: {
+      //     path:'name'
+      //   }
+      // }).exec();
       return res.status(200).json({
         data:{
           post:post
@@ -22,7 +29,7 @@ module.exports.create= async function(req,res)
 }
 catch(err)
 {
-    console.log('error in creating a post');
+    console.log('error in creating a post',err);
     return;
 }
 }
@@ -56,10 +63,11 @@ module.exports.destroy = async function(req, res) {
           message: "Post Deleted"
         });
       }
-    
       req.flash('success','post is deleted');
       return res.redirect('back');
     } else {
       res.redirect('back');
     }
   }
+
+
