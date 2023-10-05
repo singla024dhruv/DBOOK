@@ -1,4 +1,7 @@
 const User =require('../models/user.js');
+const fs=require('fs');
+const path=require('path');
+
 module.exports.profile= async function(req,res)
 {
   const user= await User.findById(req.params.id);
@@ -12,9 +15,48 @@ module.exports.profile= async function(req,res)
 module.exports.update=async function(req,res){
   if(req.user.id==req.params.id)
   {
-    const users=await User.findByIdAndUpdate(req.params.id,req.body);
-    req.flash('success','user details is updated');
-    return res.redirect('back');
+    try{
+    let user=await User.findById(req.params.id);
+   
+    User.uploadedAvatar(req,res,function(err){
+      if(err)
+      {
+        console.log('error in multer',err);
+      }
+      user.name=req.body.name;
+      user.email=req.body.email;
+     
+      if(req.file)
+      {
+        //this is saving the path of the uploaded file into the avatar field in the user
+        if(user.avatar)
+        {
+            let currAvatarPath = path.join(__dirname, '..', user.avatar);
+            if(fs.existsSync(currAvatarPath))
+            {
+                fs.unlinkSync(currAvatarPath);
+            }
+        }
+        user.avatar=User.avatarPath+'/'+req.file.filename;
+        // console.log(user.avatar);
+        
+      }
+      user.save();
+      //console.log(req.file);
+      return res.redirect('back');
+      //console.log(req.file);
+    });
+
+
+
+
+
+  }
+    catch(err)
+    {
+      req.flash('error',err);
+      return res.redirect('back');
+    }
 
   }
   else
