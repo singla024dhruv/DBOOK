@@ -1,4 +1,4 @@
-#home-container {
+/* #home-container {
   display: flex;
   height: 100%;
 }
@@ -12,4 +12,95 @@
   padding: 10px;
   border-left: 3px solid lightgray;
   height: 100%;
+} */
+
+
+body, h1, h2, h3, p, ul, li {
+  margin: 0;
+  padding: 0;
+}
+
+/* Set a background color and font for the entire page */
+body {
+  background-color: #f0f0f0;
+  font-family: Arial, sans-serif;
+}
+
+/* Style the home container */
+#home-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex; /* Use flexbox to create a two-column layout */
+  flex-wrap: wrap; /* Allow columns to wrap to a new row if needed */
+}
+
+/* Style the feed-posts section */
+#feed-posts {
+  width: 60%; /* Adjust the width for the Posts section */
+  margin-right: 10px; /* Add some spacing between columns */
+}
+
+/* Style the form for creating a new post */
+#new-post-form {
+  margin-bottom: 20px;
+}
+
+#new-post-form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
+}
+
+#new-post-form input[type="submit"] {
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Style the posts list */
+#posts-list-container ul {
+  list-style-type: none;
+}
+
+/* Style individual posts */
+.post {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+/* Style the Friends section */
+#user-friends {
+  width: 30%; /* Adjust the width for the Friends section */
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+/* Style links */
+a {
+  color: #007BFF;
+  text-decoration: none;
+}
+
+/* Style headings */
+h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+h4 {
+  font-size: 18px;
+  margin-bottom: 10px;
 }

@@ -1,4 +1,4 @@
-#layout-footer {
+/* #layout-footer {
   color: white;
   background: grey;
   padding: 5px 10px;
@@ -11,4 +11,37 @@
 }
 #layout-footer .footer-nav ul {
   list-style: none;
+} */
+#layout-footer {
+  background-color: lightgrey;
+  color: #333;
+  padding: 10px 0;
+  text-align: center;
+  font-size: 16px;
+}
+
+#layout-footer p {
+  margin: 0;
+}
+
+/* Style the footer navigation links */
+.footer-nav ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px; /* Add spacing between text and links */
+}
+
+.footer-nav li {
+  display: inline;
+  margin-right: 20px; /* Add spacing between links */
+}
+
+.footer-nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+.footer-nav a:hover {
+  text-decoration: underline;
 }

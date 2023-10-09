@@ -1,0 +1,63 @@
+/* Apply styles to individual posts */
+.post-container {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+  }
+  
+  /* Style the delete post button for the post owner */
+  .delete-post-button {
+    text-decoration: none;
+    color: #ff0000; /* Red color for delete button */
+    margin-left: 10px; /* Add spacing between content and delete button */
+  }
+  
+  /* Style the post content and user information */
+  .post-content {
+    margin: 0;
+  }
+  
+  .post-user {
+    color: #777;
+  }
+  
+  /* Style the comment form and comments list */
+  .post-comments {
+    margin-top: 10px; /* Add spacing between post content and comments */
+  }
+  
+  /* Style the comment form */
+  .post-comments-form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .post-comments-form input[type="text"] {
+    width: 75%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .post-comments-form input[type="submit"] {
+    width: 20%;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 2px;
+    cursor: pointer;
+  }
+  
+  /* Style the comment list */
+  .post-comments-list ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  /* Style individual comments using the _comment partial */
+  /* You can define specific styles for _comment in your _comment.css file */
+  
