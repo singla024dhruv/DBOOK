@@ -15,10 +15,13 @@ module.exports.index=async function(req,res){
         posts:posts
     })
 }
-module.exports.destroy = async function(req, res) {
+module.exports.destroy=async function(req,res){
+  
   try{
+    console.log('err');
   let post = await Post.findById(req.params.id);
-  //if (post.user == req.user.id) {
+  console.log('yyy');
+  if (post.user == req.user.id) {
     await post.deleteOne({post:req.params.id});
     
     await Comment.deleteMany({ post: req.params.id });
@@ -28,7 +31,12 @@ module.exports.destroy = async function(req, res) {
     return res.json(200,{
       message:"post and associated comments deleted"
     });
+    }else{
+      return res.json(401,{
+        message:"you cannot delete this post"
+      });
     }
+  }
     catch(err){
       console.log('error',err);
       return res.json(500,{
