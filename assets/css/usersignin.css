@@ -51,4 +51,21 @@
   #label input {
     margin-bottom: 10px;
   }
-  
+  .google-signin-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4285F4; /* Google Blue */
+    color: #fff; /* White text color */
+    border-radius: 5px;
+    text-decoration: none; /* Remove underlines */
+    font-weight: bold;
+}
+
+.google-signin-link:hover {
+    background-color: #357AE8; /* Darker blue on hover */
+}
+
+/* Center the link text within the paragraph */
+p {
+    text-align: center;
+}
