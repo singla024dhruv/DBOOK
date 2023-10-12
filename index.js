@@ -7,8 +7,9 @@ const db = require('./config/mongoose');
 
 const session=require('express-session');
 const passport=require('passport');
-const passporJwt=require('./config/passport-jwt-strategy');
+const passportJwt=require('./config/passport-jwt-strategy');
 const passporLocal = require('./config/passport-local-strategy');
+const passportgoogle=require('./config/passport-fgoogle-oauth2-strategy');
 const MongoStore = require('connect-mongo')(session);
 
 const flash =require('connect-flash');
