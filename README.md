@@ -5,3 +5,5 @@ Making my own social media website
 
 
 2.
+add code for publishing images in post
+installed kue
