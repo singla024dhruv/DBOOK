@@ -66,41 +66,16 @@ body {
 }
 
 /* Style the posts list */
-#posts-list-container ul {
-  list-style-type: none;
-}
 
 /* Style individual posts */
-.post {
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  padding: 10px;
-}
+
 
 /* Style the Friends section */
-#user-friends {
-  width: 30%; /* Adjust the width for the Friends section */
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 20px;
-}
+
 
 /* Style links */
-a {
-  color: #007BFF;
-  text-decoration: none;
-}
+
 
 /* Style headings */
-h2 {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
 
-h4 {
-  font-size: 18px;
-  margin-bottom: 10px;
-}
+

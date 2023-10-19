@@ -3,6 +3,7 @@ const Post=require('../models/post');
 const commentmailer=require('../mailers/comments_mailer');
 const queue=require('../config/kue');
 const commentEmailWorker=require('../workers/comment_email_worker');
+const Like =require('../models/like');
 
  
 module.exports.create = async function(req, res) {
@@ -113,6 +114,7 @@ module.exports.create = async function(req, res) {
           // let postid = comment.post;
           await comment.deleteOne({comment:req.params.id});
           await Post.findByIdAndUpdate(postid, { $pull: { comments: req.params.id } });
+          await Like.deleteMany({likeable:comment._id,onModel:'Comment'});
           if (req.xhr){
             console.log('xhr is called');
             return res.status(200).json({
@@ -133,7 +135,7 @@ module.exports.create = async function(req, res) {
       catch(err)
       {
         req.flash('error',err);
-        console.log('erroe',err);
+        console.log('error',err);
         return;
       }
     }

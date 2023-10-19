@@ -36,9 +36,12 @@ const User =require('../models/user');
   .populate('user').populate({
     path: 'comments',populate: {
       path: 'user'
+    },
+    populate:{
+      path:'likes'
     }
   }
-  ).exec();
+  ).populate('comments').populate('likes');
   const users= await User.find({});
   return res.render('home', {
     title: "DBOOK| Home",
@@ -54,3 +57,4 @@ catch(err){
 }
  }
 //module.exports.actionname= function(req,res){
+//let:can be reassigned ,const :cannot be reassigned

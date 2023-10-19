@@ -1,6 +1,7 @@
 const Post=require('../models/post.js');
 const Comment=require('../models/comment.js');
 const { name } = require('ejs');
+const Like=require('../models/like.js');
 module.exports.create= async function(req,res)
 {
     try{
@@ -50,10 +51,15 @@ catch(err)
 //     })
 // }
 module.exports.destroy = async function(req, res) {
+  try{
     const post = await Post.findById(req.params.id);
     if (post.user == req.user.id) {
+      await Like.deleteMany({likeable:post,onModel:'Post'});
+      await Like.deleteMany({_id:{$in: post.comments}});//$in is an operator in MongoDB that checks if the field (in this case, _id) contains any of the values specified in the array post.comments.
       await post.deleteOne({post:req.params.id});
+
       await Comment.deleteMany({ post: req.params.id });
+
       if(req.xhr){
         return res.status(200).json({
           
@@ -68,6 +74,10 @@ module.exports.destroy = async function(req, res) {
     } else {
       res.redirect('back');
     }
-  }
+  }catch(err)
+{
+  req.flash('error',err);
+  return res.redirect('back');
+}}
 
 

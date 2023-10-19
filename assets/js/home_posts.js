@@ -15,6 +15,8 @@
                     let newPost= newPostDom(data.data.post);
                     $('#posts-list-container>ul').prepend(newPost);
                     deletePost($(' .delete-post-button',newPost));
+                    new PostComments(data.data.post._id);
+                    new ToggleLike($('.toggle-like-button',newPost));
                     new Noty
                     ({
                         theme: 'relax',
@@ -44,10 +46,14 @@
             <small>
                 ${ post.user.name }
             </small>
+            <br>
+            <small>
+            <a class="toggle-like-button" data-likes="0" href="/likes/toggle/?id=${post._id}&type=Post">0 likes</a>
+            </small>
             </p>
             <div class="post-comments">
                
-                    <form action="/comments/create" method="POST" >
+                    <form id="post-${ post._id }-comments-form" action="/comments/create" method="POST">
                         <input type="text" name="content" placeholder="Type here to add comment..." required>
                         <input type="hidden" name="post" value="${post._id}">
                         <input type="submit" value="add comment">
@@ -62,8 +68,7 @@
                     </div>
             </div>
         
-        </li>
-        `)
+        </li>`)
     }
     //method to delete 
     let deletePost=function(deleteLink)
