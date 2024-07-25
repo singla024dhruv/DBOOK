@@ -21,13 +21,20 @@ class ToggleLike{
                 console.log(likesCount);
                 if (data.data.deleted == true){
                     likesCount -= 1;
+                    $(self).attr("data-likes", likesCount); //etting the value of the data-likes attribute of the HTML element referred to by self to the value of the likesCount variable.
+                    $(self).html(
+                      `<i class="fa-regular fa-heart"></i> ${likesCount}`
+                    );
                     
                 }else{
                     likesCount += 1;
+                    $(self).attr("data-likes", likesCount); //etting the value of the data-likes attribute of the HTML element referred to by self to the value of the likesCount variable.
+                    $(self).html(
+                      `<i class="fa-solid fa-heart"></i> ${likesCount}`
+                    );
                 }
 
-                $(self).attr('data-likes', likesCount);  //etting the value of the data-likes attribute of the HTML element referred to by self to the value of the likesCount variable.
-                $(self).html(`${likesCount} Likes`);
+                
                 // window.location.href = '/';
 
 //n the line $(self).html(${likesCount} Likes);, the backticks are used to create a template literal that incorporates the likesCount variable within the string. This way, you can dynamically include the value of likesCount in the string and display it as part of the HTML conten

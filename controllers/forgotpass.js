@@ -4,7 +4,7 @@ const fs=require('fs');
 const path=require('path');
 const crypto=require('crypto');
 //const queue=require('../config/kue');
-const commentEmailWorker=require('../workers/comment_email_worker');
+//onst commentEmailWorker=require('../workers/comment_email_worker');
 module.exports.forgot=async function(req,res){
     return res.render('usercheck',{
         title:'enter mail'

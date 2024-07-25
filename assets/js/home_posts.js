@@ -14,7 +14,9 @@
                     // console.log(data);
                     let newPost= newPostDom(data.data.post);
                     $('#posts-list-container>ul').prepend(newPost);
-                    deletePost($(' .delete-post-button',newPost));
+                    deletePost($(' .delete-post-button', newPost));
+                    new PostComments(data.data.post._id);
+                    new ToggleLike($(" .toggle-like-button", newPost));
                     new Noty
                     ({
                         theme: 'relax',
@@ -32,17 +34,25 @@
     //method to create a post in DOM
     let newPostDom=function(post){
         return $(`<li id="post-${post._id} class="post-container">
-
+         <script src="https://kit.fontawesome.com/df98e19b56.js" crossorigin="anonymous"></script>
             <p>
                 
                 <small>
                     <a class="delete-post-button" href="/posts/destroy/${post._id}">delete</a>
                 </small>
                 
-                ${ post.content }
+                ${post.content}
+                  
             <br>
+             <small>
+                            
+                                <a class="toggle-like-button" data-likes="${post.likes.length}" href="/likes/toggle/?id=${post._id}&type=Post">
+                                    <i class="fa-regular fa-heart"></i> ${post.likes.length}
+                                </a>
+                
+                        </small>
             <small>
-                ${ post.user.name }
+                ${post.user.name}
             </small>
             </p>
             <div class="post-comments">
@@ -56,14 +66,14 @@
                 
         
                     <div class="post-comments-list">
-                        <ul id="post-comments-${ post._id }">
+                        <ul id="post-comments-${post._id}">
                            
                         </ul>
                     </div>
             </div>
         
         </li>
-        `)
+        `);
     }
     //method to delete 
     let deletePost=function(deleteLink)

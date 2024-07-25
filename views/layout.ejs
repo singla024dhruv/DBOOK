@@ -4,6 +4,7 @@
         <%= title %>
         </title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+          <script src="https://kit.fontawesome.com/df98e19b56.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
 
 
@@ -29,9 +30,10 @@
      <main id="layout-main">
         <%- body %>
         </main>
-    <%- include('_footer'); %>
+    
     <%- script %>
-    <script>
+    <%- include('_footer'); %>
+    <script/>
       <% if(flash.success && flash.success.length>0) { %>
             new Noty({
                 theme:'relax',
@@ -50,6 +52,7 @@
                 timeout: 1500
             }).show();
             <% } %>
-    </script>
+            
+            </script>
     </body>
 </html>

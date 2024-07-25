@@ -1,7 +1,7 @@
 const mongoose=require('mongoose');
 
 
-const reset_password=new mongoose.Schema({
+const forgotPassWordSchema =new mongoose.Schema({
     user:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'User'
@@ -18,5 +18,5 @@ const reset_password=new mongoose.Schema({
 },{
     timestamps:true
 });
-const resetpass=mongoose.model('Resetpass',reset_password);
-module.exports=resetpass;
+const ForgotPswd=mongoose.model('ForgotPswd',forgotPassWordSchema);
+module.exports=ForgotPswd;

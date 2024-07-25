@@ -7,7 +7,8 @@ router.post('/update/:id',passport.checkAuthentication,usercontroller.update);
 // router.get('/profile',passport.checkAuthentication,usercontroller.profile);
 router.get('/sign-up',usercontroller.signUp);
 router.get('/sign-in',usercontroller.signIn);
-router.post('/create',usercontroller.createid);
+router.post('/create', usercontroller.createid);
+router.get('/all_users', usercontroller.allusers);
 
 
 // const {signUp, signIn} = require('../controllers/users_controller');

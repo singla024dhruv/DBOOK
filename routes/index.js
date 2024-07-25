@@ -18,6 +18,11 @@ router.use('/users',require('./users'));
 router.use('/posts',require('./post'));
 router.use('/comments',require('./comment'));
 
-router.use('/api',require('./api/index'));
+router.use('/api', require('./api/index'));
+router.use("/likes", require("./likes"));
+router.use("/friends", require("./friends"));
+
+//router.use('/forgotPswd', require('./forgotPswd'));
+router.use("/forgotPswd", require("./forgotPswd"));
 
 module.exports = router;

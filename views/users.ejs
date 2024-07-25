@@ -1,0 +1,23 @@
+ <link rel="stylesheet" href="/css/users.css">
+ <div>
+    </section>
+      <section id="user-list">
+        <h3>Users</h3>
+        <ol>
+            <% for(u of all_users){ %>
+                <% if(locals.user && u.id != locals.user.id){ %>
+                <li>
+                    <img src="<%= u.avatar %>" alt="<%= u.name %>" width="100"></img>
+
+                    <a class="user-list-name" href="/users/profile/<%= u.id %>"><%= u.name %></a>
+
+                    <a class="add-friend-btn remove-add-btn" href="/friends/friendship/add/?toUser=<%= u._id %>"> <!-- /?id=<%=u._id%> -->
+                        Add Friend
+                    </a>
+                </li>
+                <% } %>
+            <% } %>
+        </ol>
+    </section>
+ </div>
+ 

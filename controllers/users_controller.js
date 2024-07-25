@@ -201,5 +201,12 @@ module.exports.destroySession = function(req,res){
 
     return res.redirect('/users/sign-in');
   });
-  
-}
+ 
+  }
+   module.exports.allusers = async function (req, res) {
+     const users = await User.find({});
+     return res.render("users", {
+       title: "DBOOK| Users-list",
+       all_users: users,
+     });
+   };

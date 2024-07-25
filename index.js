@@ -5,7 +5,7 @@ const port=8000;
 require('dotenv').config();
 const expresslayouts=require('express-ejs-layouts');
 const db = require('./config/mongoose');
-
+const cors = require('cors');
 const session=require('express-session');
 const passport=require('passport');
 const passportJwt=require('./config/passport-jwt-strategy');
@@ -17,7 +17,17 @@ const flash =require('connect-flash');
 
 const customware=require('./config/middleware');
 
-
+const chatServer = require('http').Server(app);
+const chatSockets = require('./config/chat_sockets').chatSockets(chatServer);
+//app.use(cors());
+// require("socket.io")(chatServer, {
+//   cors: {
+//     origin: "*",
+//   },
+// });
+chatServer.listen(5000, () => {
+    console.log('server running at port 5000');
+})
 app.use(express.urlencoded());
 app.use(cookieParser());
 

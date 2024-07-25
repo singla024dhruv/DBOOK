@@ -1,5 +1,6 @@
 const Post =require('../models/post');
-const User =require('../models/user');
+const User = require('../models/user');
+const Friendship = require("../models/friendship");
 // module.exports.home=function(req,res)
 // {
     //console.log(req.cookies);
@@ -31,19 +32,33 @@ const User =require('../models/user');
   // populate('user').
   // exec();
   try{
-  const posts = await Post.find({})
-  .sort('-createdAt')
-  .populate('user').populate({
-    path: 'comments',populate: {
-      path: 'user'
-    }
-  }
-  ).exec();
-  const users= await User.find({});
+    const posts = await Post.find({})
+      .sort('-createdAt')
+      .populate('user').populate({
+        path: 'comments', populate: {
+          path: 'user'
+        }
+      }
+      ).populate({
+        path: 'comments',
+        populate: {
+          path: 'likes'
+        },
+      }).populate('likes');
+    const users = await User.find({});
+       let friendlist = await Friendship.find({
+         from_user: req.user,
+       }).populate({
+         path: 'to_user',
+         populate: {
+           path: 'name',
+         },
+       });
   return res.render('home', {
     title: "DBOOK| Home",
     posts: posts,
-    all_users:users
+    all_users: users,
+    all_friends: friendlist
   });
   
 

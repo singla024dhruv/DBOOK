@@ -1,4 +1,4 @@
-<!-- <link rel="stylesheet" href="/css/postcomment.css"> -->
+<link rel="stylesheet" href="/css/postcomment.css">
 
 <li id="comment-<%= comment._id %>"><p>
     <!-- so that if post owner want to delete inappropriate comment he/she can -->
@@ -6,11 +6,22 @@
     <small>
         <a class="delete-comment-button" href="/comments/destroy/<%= comment.id%>"> delete</a>
     </small>
+      <small>
+                
+                <% if(locals.user){ %>
+                    <a class="toggle-like-button" data-likes="<%= comment.likes.length %>" href="/likes/toggle/?id=<%=comment._id%>&type=Comment">
+                        <i class="fa-regular fa-heart"></i> <%= comment.likes.length %> 
+                    </a>
+                <% }else{ %>
+                    <i class="fa-regular fa-heart"></i> <%= comment.likes.length %>
+                <% } %>
+            </small>
     <%}%>
     <%= comment.content%>
     <br>
     <small>
-        <%= comment.user.name%>
+        <p class="comment-user-name"> <%= comment.user.name %> </p>
+        <p class="comment-timing"><%= comment.createdAt.toLocaleDateString() %></p>
     </small>
 </p>
 </li>

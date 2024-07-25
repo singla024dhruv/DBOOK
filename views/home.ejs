@@ -1,30 +1,52 @@
 <link rel="stylesheet" href="/css/home.css">
-  <div id="home-container">
-    <section id="feed-posts">
-        <% if (locals.user) {%>
-        <h2>Posts
-        </h2>
-        <form action="/posts/create" id="new-post-form" method="POST">
-            <textarea name="content" cols="30" rows="3" placeholder="Type Here..." required></textarea>
-            <input type ="submit" value="Post">
-        </form>
-        <% } %>
-        <div id="posts-list-container">
-            <ul>
-                <% for(post of posts){ %>
-                    <%- include('_post') -%>
-                    <%}%> 
-            </ul>
-        </div>
-    </section>
-    <section id="user-friends">
-        <h4> Friends</h4>
-        <% for(u of all_users){ %>
-            <p>
-                <a href="/users/profile/<%= u.id%>"><%=u.name%></a>
-            </p>
-            <%}%>
-    </section>
+<link rel="stylesheet" href="/css/_friend.css">
+<link rel="stylesheet" href="/css/chat_box.css" >
+<div id="home-container">
+  <section id="feed-posts">
+    <% if (locals.user) {%>
+      <h2>Posts</h2>
+      <form action="/posts/create" id="new-post-form" method="POST">
+        <textarea name="content" cols="30" rows="3" placeholder="Type Here..." required></textarea>
+        <input type="submit" value="Post">
+      </form>
+    <% } %>
+    <div id="posts-list-container">
+      <ul>
+        <% for(post of posts){ %>
+          <%- include('_post') -%>
+        <%}%> 
+      </ul>
     </div>
-    <script src="/js/home_post_comments.js" ></script>
-    <script src="/js/home_posts.js"></script>
+  </section>
+  <section id="user-friends">
+    <h4> Friends</h4>
+    <% for(u of all_friends){ %>
+      <p>
+        <a href="/users/profile/<%= u.to_user.id%>"><%= u.to_user.name %></a>
+        <a href="/friends/friendship/remove/<%= friend.id %>" class="remove-friend remove-add-btn">Remove</a>
+      </p>
+    <%}%>
+  </section>
+
+  <script src="/js/home_post_comments.js" ></script>
+  <script src="/js/home_posts.js"></script>
+  <script src="/js/home_post_comments.js"></script>
+  <script src="/js/toggle_likes.js"></script>
+<script>
+  $('.toggle-like-button').each(function(){
+    let self = this;
+    let toggleLike = new ToggleLike(self);
+  });
+</script>
+<script src="/js/friend_request.js"></script>
+ <%- include('_chat_box') -%>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.5/socket.io.js"></script>
+<script src="/js/chat_engine.js"></script>
+<% if (locals.user){ %>
+<script>
+    new ChatEngine('user-chat-box', `<%= locals.user.email %>`)
+</script>
+<% } %>
+
+
+<script src="/assets/js/post_comment_timing.js"></script>

@@ -57,6 +57,15 @@
     list-style: none;
     padding: 0;
   }
+  .comment-user .comment-user-name{
+    font-size: 1.1rem;
+}
+
+.comment-user .comment-timing{
+    font-size: .8rem;
+    color: rgba(0, 0, 0, 0.619);
+}
+
   
   /* Style individual comments using the _comment partial */
   /* You can define specific styles for _comment in your _comment.css file */
