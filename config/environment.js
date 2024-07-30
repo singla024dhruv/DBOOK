@@ -1,3 +1,15 @@
+const fs = require('fs');
+const rfs = require('rotating-file-stream');
+const path = require('path');
+
+
+const logDirectory = path.join(__dirname, '../production_logs');
+fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
+const accessLogStream = rfs.createStream('access.log', {
+  interval: '1d',
+  path: logDirectory
+});
+
 const development = {
   name: "development",
   asset_path: "./assets",
@@ -10,20 +22,27 @@ const development = {
         secure: false,
         auth: {
             user: "dbookdhruv15@gmail.com",
-            pass: process.env.PASS,
+            pass: "gsup zbkw scex tpqo",
         },
     },
-    google_client_ID: process.env.GOOGLE_CLIENT_ID,
-    google_client_Secret: process.env.GOOGLE_CLIENT_SECRET,
-    google_callbackURL: process.env.GOOGLE_CALLBACK_URL,
-    jwt_secret :'Dbook'
+    // google_client_ID: process.env.GOOGLE_CLIENT_ID,
+    // google_client_Secret: process.env.GOOGLE_CLIENT_SECRET,
+    // google_callbackURL: process.env.GOOGLE_CALLBACK_URL,
+    GOOGLE_CLIENT_ID :"257323360028-ha64c6ginl0tavkunirgqgcm6ceg43b7.apps.googleusercontent.com",
+GOOGLE_CLIENT_SECRET :"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",
+GOOGLE_CALLBACK_URL :"http://localhost:8000/users/auth/google/callback",
+  jwt_secret: 'Dbook',
+  morgan: {
+    mode: 'dev',
+    options:{stream:accessLogStream}
+    }
   
 };
 const production = {
   name: "production",
-  asset_path: process.env.Dbook_asset_path,
-  session_cookie_key: "nmGn3HLwJSYp6cRkUL36VJGe54U1akPx",
-  db: "Dbook_production",
+  asset_path: process.env.DBOOK_ASSET_PATH,
+  session_cookie_key: process.env.DBOOK_SESSION_COOKIE,
+  db: process.env.DBOOK_DB,
   smtp: {
     service: "gmail",
     host: "smtp.gmail.com",
@@ -31,13 +50,17 @@ const production = {
     secure: false,
     auth: {
       user: "dbookdhruv15@gmail.com",
-      pass: process.env.PASS,
+      pass: process.env.DBOOK_DB,
     },
   },
-  google_client_ID: process.env.GOOGLE_CLIENT_ID,
-  google_client_Secret: process.env.GOOGLE_CLIENT_SECRET,
-  google_callbackURL: "http:/Dbook.com/users/auth/google/callback",
-  jwt_secret: 'c98z93rm1l1VRmCZtgYGDboXf8DO6DZe',
+  GOOGLE_CLIENT_ID: process.env.DBOOK_GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET: process.env.DBOOK_GOOGLE_CLIENT_SECRET,
+  GOOGLE_CALLBACK_URL: process.env.DBOOK_GOOGLE_CLIENT_URL,
+  jwt_secret: process.env.DBOOK_JWT_SECRET,
+  morgan: {
+    mode: "combined",
+    options: { stream: accessLogStream },
+  },
 };
 
 module.exports =

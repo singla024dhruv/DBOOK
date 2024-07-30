@@ -7,13 +7,15 @@ require('dotenv').config();
 const expresslayouts=require('express-ejs-layouts');
 const db = require('./config/mongoose');
 const cors = require('cors');
+require("dotenv").config();
 const session=require('express-session');
 const passport=require('passport');
 const passportJwt=require('./config/passport-jwt-strategy');
 const passporLocal = require('./config/passport-local-strategy');
 const passportgoogle=require('./config/passport-fgoogle-oauth2-strategy');
 const MongoStore = require('connect-mongo')(session);
-
+const path = require('path');
+const morgan = require('morgan');
 const flash =require('connect-flash');
 
 const customware=require('./config/middleware');
@@ -28,6 +30,7 @@ const chatSockets = require('./config/chat_sockets').chatSockets(chatServer);
 // });
 chatServer.listen(5000, () => {
     console.log('server running at port 5000');
+    //console.log(process.env.DBOOK_ASSET_PATH);
 })
 app.use(express.urlencoded());
 app.use(cookieParser());
@@ -35,6 +38,9 @@ app.use(cookieParser());
 app.use(express.static(env.asset_path));
 //make the uploads patha vailable to browser
 app.use('/uploads',express.static(__dirname+'/uploads')); 
+
+app.use(morgan(env.morgan.mode,env.morgan.options))
+
 
 app.use(expresslayouts);
 

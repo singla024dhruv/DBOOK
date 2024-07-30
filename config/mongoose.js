@@ -8,6 +8,7 @@ db.on('error',console.error.bind(console,"error connecting to mongodb"));
 
 db.once('open',function(){
     console.log('Connected to database:: MongoDB');
+    // console.log(process.env.DBOOK_ASSET_PATH);
 
 });
 
