@@ -15,28 +15,29 @@ const development = {
   asset_path: "./assets",
   session_cookie_key: "kuchsecreth",
   db: "Dbook_dev",
-    smtp: {
-        service: "gmail",
-        host: "smtp.gmail.com",
-        port: 587,
-        secure: false,
-        auth: {
-            user: "dbookdhruv15@gmail.com",
-            pass: "gsup zbkw scex tpqo",
-        },
+  smtp: {
+    service: "gmail",
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,
+    auth: {
+      user: "dbookdhruv15@gmail.com",
+      pass: process.env.DBOOK_SMTP_PASS,
+      //pass: "gsup zbkw scex tpqo",
     },
-    // google_client_ID: process.env.GOOGLE_CLIENT_ID,
-    // google_client_Secret: process.env.GOOGLE_CLIENT_SECRET,
-    // google_callbackURL: process.env.GOOGLE_CALLBACK_URL,
-    GOOGLE_CLIENT_ID :"257323360028-ha64c6ginl0tavkunirgqgcm6ceg43b7.apps.googleusercontent.com",
-GOOGLE_CLIENT_SECRET :"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",
-GOOGLE_CALLBACK_URL :"http://localhost:8000/users/auth/google/callback",
-  jwt_secret: 'Dbook',
+  },
+  // google_client_ID: process.env.GOOGLE_CLIENT_ID,
+  // google_client_Secret: process.env.GOOGLE_CLIENT_SECRET,
+  // google_callbackURL: process.env.GOOGLE_CALLBACK_URL,
+  GOOGLE_CLIENT_ID:
+    "257323360028-ha64c6ginl0tavkunirgqgcm6ceg43b7.apps.googleusercontent.com",
+  GOOGLE_CLIENT_SECRET: "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",
+  GOOGLE_CALLBACK_URL: "http://localhost:8000/users/auth/google/callback",
+  jwt_secret: "Dbook",
   morgan: {
-    mode: 'dev',
-    options:{stream:accessLogStream}
-    }
-  
+    mode: "dev",
+    options: { stream: accessLogStream },
+  },
 };
 const production = {
   name: "production",
@@ -50,7 +51,7 @@ const production = {
     secure: false,
     auth: {
       user: "dbookdhruv15@gmail.com",
-      pass: process.env.DBOOK_DB,
+      pass: process.env.DBOOK_SMTP_PASS,
     },
   },
   GOOGLE_CLIENT_ID: process.env.DBOOK_GOOGLE_CLIENT_ID,
