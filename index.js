@@ -32,7 +32,7 @@ chatServer.listen(5000, () => {
     console.log('server running at port 5000');
     //console.log(process.env.DBOOK_ASSET_PATH);
 })
-app.use(express.urlencoded(extended:false));
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use(express.static(env.asset_path));
